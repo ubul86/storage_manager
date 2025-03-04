@@ -2,8 +2,6 @@
 
 namespace App\Interfaces;
 
-use App\Interfaces\ProductInterface;
-
 interface StorageInterface
 {
     public function getName(): string;
@@ -18,4 +16,8 @@ interface StorageInterface
     public function addProduct(ProductInterface $product): void;
 
     public function __toString(): string;
+
+    public function getProductCount(ProductInterface $product): int;
+
+    public function removeProduct(ProductInterface $product): void;
 }
