@@ -1,0 +1,29 @@
+{
+    "name": "webdream/store-management",
+    "type": "project",
+    "description": "Webdream Store Management",
+    "autoload": {
+      "psr-4": {
+        "App\\": "src/"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "App\\Tests\\": "src/Tests/"
+      }
+    },
+    "require": {
+      "php": "^8.1"
+    },
+    "require-dev": {
+      "phpunit/phpunit": "^10.0",
+      "phpstan/phpstan": "^1.10",
+      "squizlabs/php_codesniffer": "*"
+    },
+    "scripts": {
+      "lint": "vendor/bin/phpcs --standard=PSR12 src",
+      "lint-fix": "vendor/bin/phpcbf --standard=PSR12 src",
+      "analyse": "vendor/bin/phpstan analyse src --level=max",
+      "test": "vendor/bin/phpunit --testdox"
+    }
+}
