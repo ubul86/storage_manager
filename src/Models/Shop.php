@@ -26,28 +26,6 @@ class Shop implements ShopInterface
         $this->storages[] = $storage;
     }
 
-    /**
-     *
-     * @param StorageInterface[] $newStorages
-     */
-    public function refreshStorages(array $newStorages): void
-    {
-        foreach ($newStorages as $newStorage) {
-            $found = false;
-            foreach ($this->storages as $key => $existingStorage) {
-                if ($existingStorage->getName() === $newStorage->getName()) {
-                    $this->storages[$key] = $newStorage;
-                    $found = true;
-                    break;
-                }
-            }
-
-            if (!$found) {
-                $this->addStorage($newStorage);
-            }
-        }
-    }
-
     public function getStorages(): array
     {
         return $this->storages;

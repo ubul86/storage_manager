@@ -93,8 +93,7 @@ class ShopController
     public function addProductsToStorages(Shop $shop, ProductInterface $product, int $quantity): Shop
     {
         try {
-            $storages = $this->storageService->addProductsToStorages($shop->getStorages(), $product, $quantity);
-            $shop->refreshStorages($storages);
+            $this->storageService->addProductsToStorages($shop, $product, $quantity);
         } catch (StorageFullException | InsufficientStockException $e) {
             throw $e;
         }
@@ -111,8 +110,7 @@ class ShopController
     public function removeProductsFromStorages(Shop $shop, ProductInterface $product, int $quantity): Shop
     {
         try {
-            $storages = $this->storageService->takeOutProductsFromStorages($shop->getStorages(), $product, $quantity);
-            $shop->refreshStorages($storages);
+            $this->storageService->takeOutProductsFromStorages($shop, $product, $quantity);
         } catch (StorageFullException | InsufficientStockException $e) {
             throw $e;
         }

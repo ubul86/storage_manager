@@ -101,8 +101,7 @@ class ShopTest extends TestCase
 
         $shop->addStorage($storage);
 
-        $refreshedStorages = $this->storageService->addProductsToStorages($shop->getStorages(), $product1, 5);
-        $shop->refreshStorages($refreshedStorages);
+        $this->storageService->addProductsToStorages($shop, $product1, 5);
 
         $storages = $shop->getStorages();
 
@@ -151,7 +150,6 @@ class ShopTest extends TestCase
 
         $shop->addStorage($storage);
 
-        $refreshedStorages = $this->storageService->takeOutProductsFromStorages($shop->getStorages(), $product1, 5);
-        $shop->refreshStorages($refreshedStorages);
+        $this->storageService->takeOutProductsFromStorages($shop, $product1, 5);
     }
 }

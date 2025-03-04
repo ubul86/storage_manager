@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Exceptions\InsufficientStockException;
 use App\Interfaces\StorageInterface;
+use App\Models\Shop;
 use App\Models\Storage;
 use App\Interfaces\ProductInterface;
 use App\Exceptions\StorageFullException;
@@ -28,47 +29,47 @@ class StorageService
     }
 
     /**
-     * @param array<StorageInterface> $storages
+     * @param Shop $shop
      * @param ProductInterface $product
      * @param int $quantity
      * @throws StorageFullException|InsufficientStockException
-     * @return array<StorageInterface>
+     * @return void
      */
-    public function addProductsToStorages(array $storages, ProductInterface $product, int $quantity): array
+    public function addProductsToStorages(Shop $shop, ProductInterface $product, int $quantity): void
     {
-        return $this->modifyProductQuantityInStorages($storages, $product, $quantity, true);
+        $this->modifyProductQuantityInStorages($shop, $product, $quantity, true);
     }
 
     /**
-     * @param array<StorageInterface> $storages
+     * @param Shop $shop
      * @param ProductInterface $product
      * @param int $quantity
      * @throws StorageFullException|InsufficientStockException
-     * @return array<StorageInterface>
+     * @return void
      */
-    public function takeOutProductsFromStorages(array $storages, ProductInterface $product, int $quantity): array
+    public function takeOutProductsFromStorages(Shop $shop, ProductInterface $product, int $quantity): void
     {
         try {
-            $this->checkProductAvailability($storages, $product, $quantity);
-            return $this->modifyProductQuantityInStorages($storages, $product, $quantity, false);
+            $this->checkProductAvailability($shop->getStorages(), $product, $quantity);
+            $this->modifyProductQuantityInStorages($shop, $product, $quantity, false);
         } catch (StorageFullException | InsufficientStockException $e) {
             throw $e;
         }
     }
 
     /**
-     * @param array<StorageInterface> $storages
+     * @param Shop $shop
      * @param ProductInterface $product
      * @param int $quantity
      * @param bool $isAdding
      * @throws StorageFullException|InsufficientStockException
-     * @return array<StorageInterface>
+     * @return void
      */
-    private function modifyProductQuantityInStorages(array $storages, ProductInterface $product, int $quantity, bool $isAdding): array
+    private function modifyProductQuantityInStorages(Shop $shop, ProductInterface $product, int $quantity, bool $isAdding): void
     {
         $remainingQuantity = $quantity;
 
-        foreach ($storages as $storage) {
+        foreach ($shop->getStorages() as $storage) {
             $availableSpaceOrStock = $isAdding
                 ? $storage->getCapacity() - $storage->getStockQuantity()
                 : $storage->getProductCount($product);
@@ -83,7 +84,7 @@ class StorageService
                 $remainingQuantity -= $amountToProcess;
 
                 if ($remainingQuantity === 0) {
-                    return $storages;
+                    return;
                 }
             }
         }
@@ -96,7 +97,7 @@ class StorageService
             }
         }
 
-        return $storages;
+        return;
     }
 
     /**
@@ -115,7 +116,7 @@ class StorageService
         }
 
         if ($requiredQuantity > $totalAvailable) {
-            throw new InsufficientStockException();
+            throw new InsufficientStockException('Not enough products in storage to remove!');
         }
 
         return  $totalAvailable - $requiredQuantity;

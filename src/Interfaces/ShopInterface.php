@@ -14,10 +14,4 @@ interface ShopInterface
     public function getStorages(): array;
     public function getName(): string;
     public function getLocation(): string;
-
-    /**
-     *
-     * @param StorageInterface[] $newStorages
-     */
-    public function refreshStorages(array $newStorages): void;
 }
