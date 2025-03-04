@@ -6,6 +6,7 @@ use App\Models\Laptop;
 use App\Models\Mobile;
 use App\Models\Product;
 use App\Models\Brand;
+use App\Validators\ProductValidator;
 
 class ProductService
 {
@@ -16,6 +17,9 @@ class ProductService
      */
     public function createProduct(array $data, Brand $brand): Product
     {
+
+        ProductValidator::validate($data);
+
         $type = $data['type'] ?? 'Product';
         $sku = $data['sku'];
         $name = $data['name'];
