@@ -71,6 +71,13 @@ composer install
 
 The application should now be accessible at http://localhost:{NGINX_PORT}.
 
+### 5. Optional:
+
+Alternatively, you can run the index.php file directly from the command line:
+
+```bash
+docker exec -i {php_fpm_container_name} php index.php
+```
 
 ## Installation Without Docker
 
@@ -91,15 +98,25 @@ Install PHP dependencies using Composer:
 composer install
 ```
 
-### 3. Start the Development Server
+### 3. Run the application
 
-Run a PHP Development Server
+**Option 1: Start the PHP Development Server**
 
 ```bash
 php -S localhost:8080
 ```
 
 The application should now be accessible at http://localhost:8080.
+
+**Option 2: Run the index.php File**
+
+Alternatively, you can run the index.php file directly from the command line:
+
+```bash
+php index.php
+```
+
+The results will be displayed in the CLI.
 
 ## Testing and Analysis Tools
 

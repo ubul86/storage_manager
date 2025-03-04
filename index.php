@@ -55,19 +55,19 @@ printBanner('2. BULK Add Products');
 
 $shop->addProductsToStorages($shopModel, $product, 18);
 
-echo '<pre>' . nl2br($shopModel) . '</pre>';
+formatOutput($shopModel);
 
 printBanner('3. BULK Remove Products');
 
 $shop->removeProductsFromStorages($shopModel, $product, 1);
 
-echo '<pre>' . nl2br($shopModel) . '</pre>';
+formatOutput($shopModel);
 
 printBanner('4. BULK Remove Products insufficient');
 
 try {
     $shop->removeProductsFromStorages($shopModel, $product, 19);
-    echo '<pre>' . nl2br($shopModel) . '</pre>';
+    formatOutput($shopModel);
 }
 catch(InsufficientStockException $e) {
     echo $e->getMessage();
