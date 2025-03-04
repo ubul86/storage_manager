@@ -10,9 +10,9 @@ class BrandController
 {
     private BrandService $brandService;
 
-    public function __construct()
+    public function __construct(BrandService $brandService)
     {
-        $this->brandService = new BrandService();
+        $this->brandService = $brandService;
     }
 
     /**

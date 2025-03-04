@@ -10,9 +10,9 @@ use App\Services\ProductService;
 class ProductController
 {
     private ProductService $productService;
-    public function __construct()
+    public function __construct(ProductService $productService)
     {
-        $this->productService = new ProductService();
+        $this->productService = $productService;
     }
 
     /**

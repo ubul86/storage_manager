@@ -12,9 +12,9 @@ class ShopController
 {
     private ShopService $shopService;
 
-    public function __construct()
+    public function __construct(ShopService $shopService)
     {
-        $this->shopService = new ShopService();
+        $this->shopService = $shopService;
     }
 
     /**

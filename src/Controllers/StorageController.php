@@ -10,9 +10,9 @@ class StorageController
 {
     private StorageService $storageService;
 
-    public function __construct()
+    public function __construct(StorageService $storageService)
     {
-        $this->storageService = new StorageService();
+        $this->storageService = $storageService;
     }
 
     /**
