@@ -7,6 +7,7 @@ use App\Interfaces\StorageInterface;
 use App\Models\Storage;
 use App\Interfaces\ProductInterface;
 use App\Exceptions\StorageFullException;
+use App\Validators\StorageValidator;
 
 class StorageService
 {
@@ -16,6 +17,9 @@ class StorageService
      */
     public function createStorage(array $data): StorageInterface
     {
+
+        StorageValidator::validate($data);
+
         $name = $data['name'];
         $address = $data['address'];
         $capacity = $data['capacity'];

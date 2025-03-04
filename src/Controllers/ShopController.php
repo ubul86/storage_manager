@@ -43,20 +43,30 @@ class ShopController
     /**
      * @param array{ name: string, address: string, capacity: int } $data
      * @return StorageInterface
+     * @throws InvalidArgumentException
      */
     public function createStorage(array $data): StorageInterface
     {
-        return $this->storageService->createStorage($data);
+        try {
+            return $this->storageService->createStorage($data);
+        } catch (InvalidArgumentException $e) {
+            throw $e;
+        }
     }
 
     /**
      * @param array<mixed> $data
      * @param Brand $brand
      * @return Product
+     * @throws InvalidArgumentException
      */
     public function createProduct(array $data, Brand $brand): Product
     {
-        return $this->productService->createProduct($data, $brand);
+        try {
+            return $this->productService->createProduct($data, $brand);
+        } catch (InvalidArgumentException $e) {
+            throw $e;
+        }
     }
 
     /**
