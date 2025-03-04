@@ -6,7 +6,7 @@ use App\Models\Storage;
 
 interface ShopInterface
 {
-    public function addStorage(Storage $storage): void;
+    public function addStorage(StorageInterface $storage): void;
 
     /**
      * @return StorageInterface[]
@@ -17,7 +17,7 @@ interface ShopInterface
 
     /**
      *
-     * @param Storage[] $newStorages
+     * @param StorageInterface[] $newStorages
      */
     public function refreshStorages(array $newStorages): void;
 }

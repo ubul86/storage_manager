@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Exceptions\InsufficientStockException;
 use App\Exceptions\StorageFullException;
 use App\Interfaces\ProductInterface;
+use App\Interfaces\StorageInterface;
 use InvalidArgumentException;
 use App\Models\Brand;
 use App\Models\Product;
@@ -41,9 +42,9 @@ class ShopController
 
     /**
      * @param array{ name: string, address: string, capacity: int } $data
-     * @return Storage
+     * @return StorageInterface
      */
-    public function createStorage(array $data): Storage
+    public function createStorage(array $data): StorageInterface
     {
         return $this->storageService->createStorage($data);
     }
