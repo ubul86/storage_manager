@@ -1,12 +1,14 @@
 <?php
 
 require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/src/Helpers/printHelper.php';
 
 use App\Controllers\ShopController;
-
+use App\Exceptions\InsufficientStockException;
 
 $shop = new ShopController();
 
+printBanner('1. Creating Elements');
 
 $brand = $shop->createBrand([
     'name' => 'Test',
@@ -14,21 +16,21 @@ $brand = $shop->createBrand([
 ]);
 
 $product = $shop->createProduct([
-    'sku' => 'asdqwe',
+    'sku' => '12345',
     'name' => 'Test Product',
     'price' => 10,
 ], $brand);
 
 $product2 = $shop->createProduct([
     'type' => 'Laptop',
-    'sku' => 'asdqwe2',
+    'sku' => '54321',
     'name' => 'Test Product 2',
     'price' => 10,
 ], $brand);
 
 $storage = $shop->createStorage([
-    'name' => 'Teszt Storage',
-    'address' => 'Test Location',
+    'name' => 'Test Storage',
+    'address' => 'Test Address',
     'capacity' => 10,
 ]);
 
@@ -41,18 +43,32 @@ $shopModel = $shop->createShop([
 ]);
 
 $storage2 = $shop->createStorage([
-    'name' => 'Teszt Storage 2',
-    'address' => 'Test Location',
+    'name' => 'Test Storage 2',
+    'address' => 'Test Address 2',
     'capacity' => 10,
 ]);
 
 $shopModel->addStorage($storage);
 $shopModel->addStorage($storage2);
 
+printBanner('2. BULK Add Products');
+
 $shop->addProductsToStorages($shopModel, $product, 18);
 
-//echo '<pre>' . nl2br($shopModel) . '</pre>';
+echo '<pre>' . nl2br($shopModel) . '</pre>';
+
+printBanner('3. BULK Remove Products');
 
 $shop->removeProductsFromStorages($shopModel, $product, 1);
 
 echo '<pre>' . nl2br($shopModel) . '</pre>';
+
+printBanner('4. BULK Remove Products insufficient');
+
+try {
+    $shop->removeProductsFromStorages($shopModel, $product, 19);
+    echo '<pre>' . nl2br($shopModel) . '</pre>';
+}
+catch(InsufficientStockException $e) {
+    echo $e->getMessage();
+}
