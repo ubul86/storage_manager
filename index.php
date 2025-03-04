@@ -5,30 +5,36 @@ require __DIR__ . '/src/Helpers/printHelper.php';
 
 use App\Controllers\ShopController;
 use App\Exceptions\InsufficientStockException;
+use App\Controllers\ProductController;
+use App\Controllers\BrandController;
+use App\Controllers\StorageController;
 
-$shop = new ShopController();
+$shopController = new ShopController();
+$productController = new ProductController();
+$brandController = new BrandController();
+$storageController = new StorageController();
 
 printBanner('1. Creating Elements');
 
-$brand = $shop->createBrand([
+$brand = $brandController->create([
     'name' => 'Test',
     'qualityCategory' => 5
 ]);
 
-$product = $shop->createProduct([
+$product = $productController->create([
     'sku' => '12345',
     'name' => 'Test Product',
     'price' => 10,
 ], $brand);
 
-$product2 = $shop->createProduct([
+$product2 = $productController->create([
     'type' => 'Laptop',
     'sku' => '54321',
     'name' => 'Test Product 2',
     'price' => 10,
 ], $brand);
 
-$storage = $shop->createStorage([
+$storage = $storageController->create([
     'name' => 'Test Storage',
     'address' => 'Test Address',
     'capacity' => 10,
@@ -37,12 +43,12 @@ $storage = $shop->createStorage([
 $storage->addProduct($product);
 $storage->addProduct($product2);
 
-$shopModel = $shop->createShop([
+$shopModel = $shopController->create([
     'name' => 'Test Shop',
     'location' => 'Test Location'
 ]);
 
-$storage2 = $shop->createStorage([
+$storage2 = $storageController->create([
     'name' => 'Test Storage 2',
     'address' => 'Test Address 2',
     'capacity' => 10,
@@ -53,20 +59,20 @@ $shopModel->addStorage($storage2);
 
 printBanner('2. BULK Add Products');
 
-$shop->addProductsToStorages($shopModel, $product, 18);
+$shopController->addProductsToStorages($shopModel, $product, 18);
 
 formatOutput($shopModel);
 
 printBanner('3. BULK Remove Products');
 
-$shop->removeProductsFromStorages($shopModel, $product, 1);
+$shopController->removeProductsFromStorages($shopModel, $product, 1);
 
 formatOutput($shopModel);
 
 printBanner('4. BULK Remove Products insufficient');
 
 try {
-    $shop->removeProductsFromStorages($shopModel, $product, 19);
+    $shopController->removeProductsFromStorages($shopModel, $product, 19);
     formatOutput($shopModel);
 }
 catch(InsufficientStockException $e) {
