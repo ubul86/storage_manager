@@ -12,9 +12,9 @@ class StorageService
 {
     /**
      * @param array{ name: string, address: string, capacity: int } $data
-     * @return Storage
+     * @return StorageInterface
      */
-    public function createStorage(array $data): Storage
+    public function createStorage(array $data): StorageInterface
     {
         $name = $data['name'];
         $address = $data['address'];
@@ -24,7 +24,7 @@ class StorageService
     }
 
     /**
-     * @param array<Storage> $storages
+     * @param array<StorageInterface> $storages
      * @param ProductInterface $product
      * @param int $quantity
      * @throws StorageFullException|InsufficientStockException
@@ -36,7 +36,7 @@ class StorageService
     }
 
     /**
-     * @param array<Storage> $storages
+     * @param array<StorageInterface> $storages
      * @param ProductInterface $product
      * @param int $quantity
      * @throws StorageFullException|InsufficientStockException
@@ -44,12 +44,16 @@ class StorageService
      */
     public function takeOutProductsFromStorages(array $storages, ProductInterface $product, int $quantity): array
     {
-        $this->checkProductAvailability($storages, $product, $quantity);
-        return $this->modifyProductQuantityInStorages($storages, $product, $quantity, false);
+        try {
+            $this->checkProductAvailability($storages, $product, $quantity);
+            return $this->modifyProductQuantityInStorages($storages, $product, $quantity, false);
+        } catch (StorageFullException | InsufficientStockException $e) {
+            return $this->modifyProductQuantityInStorages($storages, $product, $quantity, false);
+        }
     }
 
     /**
-     * @param array<Storage> $storages
+     * @param array<StorageInterface> $storages
      * @param ProductInterface $product
      * @param int $quantity
      * @param bool $isAdding
@@ -92,7 +96,7 @@ class StorageService
     }
 
     /**
-     * @param Storage[] $storages
+     * @param StorageInterface[] $storages
      * @param ProductInterface $product
      * @param int $requiredQuantity
      * @return int
