@@ -87,33 +87,31 @@ class ShopController
      * @param Shop $shop
      * @param ProductInterface $product
      * @param int $quantity
-     * @return Shop
+     * @return void
      * @throws StorageFullException|InsufficientStockException
      */
-    public function addProductsToStorages(Shop $shop, ProductInterface $product, int $quantity): Shop
+    public function addProductsToStorages(Shop $shop, ProductInterface $product, int $quantity): void
     {
         try {
             $this->storageService->addProductsToStorages($shop, $product, $quantity);
         } catch (StorageFullException | InsufficientStockException $e) {
             throw $e;
         }
-        return $shop;
     }
 
     /**
      * @param Shop $shop
      * @param ProductInterface $product
      * @param int $quantity
-     * @return Shop
+     * @return void
      * @throws StorageFullException|InsufficientStockException
      */
-    public function removeProductsFromStorages(Shop $shop, ProductInterface $product, int $quantity): Shop
+    public function removeProductsFromStorages(Shop $shop, ProductInterface $product, int $quantity): void
     {
         try {
             $this->storageService->takeOutProductsFromStorages($shop, $product, $quantity);
         } catch (StorageFullException | InsufficientStockException $e) {
             throw $e;
         }
-        return $shop;
     }
 }
