@@ -19,7 +19,7 @@ services:
       - ./:/var/www/html
       - ./docker_settings/nginx/default.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - "8080:80"
+      - ${NGINX_PORT:8080}:80
     depends_on:
       - php
     networks:

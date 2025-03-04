@@ -39,7 +39,15 @@ git clone https://github.com/ubul86/storage_manager.git
 cd storage_manager
 ```
 
-### 2. Build The Containers
+### 2. Copy Environment File And Set The ENV variables
+
+Copy the .env.example file to .env
+
+```bash
+cp .env.example .env
+```
+
+### 3. Build The Containers
 
 Go to the project root directory, where is the docker-compose.yml file and add the following command:
 
@@ -47,7 +55,7 @@ Go to the project root directory, where is the docker-compose.yml file and add t
 docker-compose up -d --build
 ```
 
-### 5. Install Dependencies:
+### 4. Install Dependencies:
 
 Install PHP dependencies using Composer:
 
@@ -60,6 +68,9 @@ or
 docker exec -it {php_fpm_container_name} bash
 composer install
 ```
+
+The application should now be accessible at http://localhost:{NGINX_PORT}.
+
 
 ## Installation Without Docker
 
@@ -83,9 +94,12 @@ composer install
 ### 3. Start the Development Server
 
 Run a PHP Development Server
+
 ```bash
 php -S localhost:8080
 ```
+
+The application should now be accessible at http://localhost:8080.
 
 ## Testing and Analysis Tools
 
