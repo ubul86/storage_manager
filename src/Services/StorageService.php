@@ -52,7 +52,7 @@ class StorageService
             $this->checkProductAvailability($storages, $product, $quantity);
             return $this->modifyProductQuantityInStorages($storages, $product, $quantity, false);
         } catch (StorageFullException | InsufficientStockException $e) {
-            return $this->modifyProductQuantityInStorages($storages, $product, $quantity, false);
+            throw $e;
         }
     }
 
