@@ -12,9 +12,11 @@
 
 ## Minimum Requirements
 
-- **Docker and Docker Compose**
-- **PHP**: 8.1 or higher
-- **Composer**: 2.0 or higher
+- **With Docker:**
+  - **Docker and Docker Compose**
+- **Without Docker:**
+  - **PHP**: 8.1 or higher
+  - **Composer**: 2.0 or higher
 
 ## Docker Services
 
