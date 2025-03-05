@@ -51,8 +51,8 @@ class ShopTest extends TestCase
             'capacity' => 20,
         ]);
 
-        $storage->addProduct($product1);
-        $storage->addProduct($product2);
+        $this->storageService->addProduct($storage, $product1);
+        $this->storageService->addProduct($storage, $product2);
 
         $storageContent = (string)$storage;
 
