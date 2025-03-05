@@ -2,9 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Exceptions\ProductNotFoundException;
 use App\Interfaces\StorageInterface;
 use InvalidArgumentException;
 use App\Services\StorageService;
+use App\Interfaces\ProductInterface;
+use App\Exceptions\StorageFullException;
 
 class StorageController
 {
@@ -28,4 +31,35 @@ class StorageController
             throw $e;
         }
     }
+
+    /**
+     * @param StorageInterface $storage
+     * @param ProductInterface $product
+     * @return void
+     * @throws StorageFullException
+     */
+    public function addProduct(StorageInterface $storage, ProductInterface $product): void
+    {
+        try {
+            $this->storageService->addProduct($storage, $product);
+        } catch (StorageFullException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param StorageInterface $storage
+     * @param ProductInterface $product
+     * @return void
+     * @throws ProductNotFoundException
+     */
+    public function removeProduct(StorageInterface $storage, ProductInterface $product): void
+    {
+        try {
+            $this->storageService->removeProduct($storage, $product);
+        } catch (ProductNotFoundException $e) {
+            throw $e;
+        }
+    }
+
 }

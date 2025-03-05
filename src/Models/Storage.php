@@ -48,6 +48,16 @@ class Storage implements StorageInterface
         return count($this->stock);
     }
 
+    public function hasCapacity(): bool
+    {
+        return $this->getStockQuantity() < $this->getCapacity();
+    }
+
+    public function hasProduct(ProductInterface $product): bool
+    {
+        return $this->getProductCount($product) > 0;
+    }
+
     public function addProduct(ProductInterface $product): void
     {
         $this->stock[] = $product;

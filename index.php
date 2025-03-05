@@ -51,8 +51,8 @@ $storage = $storageController->create([
     'capacity' => 10,
 ]);
 
-$storage->addProduct($product);
-$storage->addProduct($product2);
+$storageController->addProduct($storage, $product);
+$storageController->addProduct($storage, $product2);
 
 $shopModel = $shopController->create([
     'name' => 'Test Shop',
@@ -80,7 +80,7 @@ $shopController->removeProductsFromStorages($shopModel, $product, 1);
 
 formatOutput($shopModel);
 
-printBanner('4. BULK Remove Products insufficient');
+printBanner('4. BULK Remove Products Insufficient');
 
 try {
     $shopController->removeProductsFromStorages($shopModel, $product, 19);

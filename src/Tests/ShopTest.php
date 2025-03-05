@@ -22,7 +22,7 @@ class ShopTest extends TestCase
         $this->brandService = new BrandService();
         $this->productService = new ProductService();
         $this->storageService = new StorageService();
-        $this->shopService = new ShopService();
+        $this->shopService = new ShopService($this->storageService);
     }
 
     public function testAddProductsToStorageAndPrintStorageContent(): void
@@ -51,8 +51,8 @@ class ShopTest extends TestCase
             'capacity' => 20,
         ]);
 
-        $storage->addProduct($product1);
-        $storage->addProduct($product2);
+        $this->storageService->addProduct($storage, $product1);
+        $this->storageService->addProduct($storage, $product2);
 
         $storageContent = (string)$storage;
 

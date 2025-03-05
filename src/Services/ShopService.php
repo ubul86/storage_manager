@@ -10,6 +10,13 @@ use App\Models\Shop;
 
 class ShopService
 {
+    private StorageService $storageService;
+
+    public function __construct(StorageService $storageService)
+    {
+        $this->storageService = $storageService;
+    }
+
     /**
      * @param array{ name: string, location: string } $data
      * @return Shop
@@ -43,12 +50,8 @@ class ShopService
      */
     public function takeOutProductsFromStorages(Shop $shop, ProductInterface $product, int $quantity): void
     {
-        try {
-            $this->checkProductAvailability($shop->getStorages(), $product, $quantity);
-            $this->modifyProductQuantityInStorages($shop, $product, $quantity, false);
-        } catch (StorageFullException | InsufficientStockException $e) {
-            throw $e;
-        }
+        $this->checkProductAvailability($shop->getStorages(), $product, $quantity);
+        $this->modifyProductQuantityInStorages($shop, $product, $quantity, false);
     }
 
     /**
@@ -71,9 +74,7 @@ class ShopService
             if ($availableSpaceOrStock > 0) {
                 $amountToProcess = min($remainingQuantity, $availableSpaceOrStock);
 
-                for ($i = 0; $i < $amountToProcess; $i++) {
-                    $isAdding ? $storage->addProduct($product) : $storage->removeProduct($product);
-                }
+                $isAdding ? $this->storageService->addMultipleProduct($storage, $product, $amountToProcess) : $this->storageService->removeMultipleProduct($storage, $product, $amountToProcess);
 
                 $remainingQuantity -= $amountToProcess;
 
@@ -90,8 +91,6 @@ class ShopService
                 throw new InsufficientStockException("Not enough products in storage to remove!");
             }
         }
-
-        return;
     }
 
     /**

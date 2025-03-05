@@ -20,4 +20,8 @@ interface StorageInterface
     public function getProductCount(ProductInterface $product): int;
 
     public function removeProduct(ProductInterface $product): void;
+
+    public function hasCapacity(): bool;
+
+    public function hasProduct(ProductInterface $product): bool;
 }
