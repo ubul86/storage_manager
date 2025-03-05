@@ -50,12 +50,8 @@ class ShopService
      */
     public function takeOutProductsFromStorages(Shop $shop, ProductInterface $product, int $quantity): void
     {
-        try {
-            $this->checkProductAvailability($shop->getStorages(), $product, $quantity);
-            $this->modifyProductQuantityInStorages($shop, $product, $quantity, false);
-        } catch (StorageFullException | InsufficientStockException $e) {
-            throw $e;
-        }
+        $this->checkProductAvailability($shop->getStorages(), $product, $quantity);
+        $this->modifyProductQuantityInStorages($shop, $product, $quantity, false);
     }
 
     /**
