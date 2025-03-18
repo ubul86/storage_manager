@@ -28,7 +28,7 @@ class StorageController
     public function create(array $data): StorageInterface
     {
         try {
-            return $this->storageService->createStorage($data);
+            return $this->storageService->createStorage(data: $data);
         } catch (InvalidArgumentException $e) {
             throw $e;
         }
@@ -43,7 +43,7 @@ class StorageController
     public function addProduct(StorageInterface $storage, ProductInterface $product): void
     {
         try {
-            $this->storageService->addProduct($storage, $product);
+            $this->storageService->addProduct(storage: $storage, product: $product);
         } catch (StorageFullException $e) {
             throw $e;
         }
@@ -58,7 +58,7 @@ class StorageController
     public function removeProduct(StorageInterface $storage, ProductInterface $product): void
     {
         try {
-            $this->storageService->removeProduct($storage, $product);
+            $this->storageService->removeProduct(storage: $storage, product: $product);
         } catch (ProductNotFoundException $e) {
             throw $e;
         }

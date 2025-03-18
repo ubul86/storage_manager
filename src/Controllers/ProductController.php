@@ -26,7 +26,7 @@ class ProductController
     public function create(array $data, Brand $brand): Product
     {
         try {
-            return $this->productService->createProduct($data, $brand);
+            return $this->productService->createProduct(data: $data, brand: $brand);
         } catch (InvalidArgumentException $e) {
             throw $e;
         }

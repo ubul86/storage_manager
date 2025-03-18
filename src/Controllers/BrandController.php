@@ -25,7 +25,7 @@ class BrandController
     public function create(array $data): Brand
     {
         try {
-            return $this->brandService->createBrand($data);
+            return $this->brandService->createBrand(data: $data);
         } catch (InvalidArgumentException $e) {
             throw $e;
         }

@@ -25,15 +25,15 @@ class ProductService
         $name = $data['name'];
         $price = $data['price'];
         $product = match ($type) {
-            'Laptop' => (new Laptop($sku, $name))
-                ->setProcessor($data['processor'] ?? 'Intel i7')
-                ->setRamSize($data['ramSize'] ?? 16),
-            'Mobile' => (new Mobile($sku, $name))
-                ->setScreenSize($data['screenSize'] ?? '10"'),
-            default => new Product($sku, $name),
+            'Laptop' => (new Laptop(sku: $sku, name: $name))
+                ->setProcessor(processor: $data['processor'] ?? 'Intel i7')
+                ->setRamSize(ramSize: $data['ramSize'] ?? 16),
+            'Mobile' => (new Mobile(sku: $sku, name: $name))
+                ->setScreenSize(screenSize: $data['screenSize'] ?? '10"'),
+            default => new Product(sku: $sku, name: $name),
         };
-        $product->setPrice($price);
-        $product->setBrand($brand);
+        $product->setPrice(price: $price);
+        $product->setBrand(brand: $brand);
 
         return $product;
     }

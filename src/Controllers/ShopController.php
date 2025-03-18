@@ -25,7 +25,7 @@ class ShopController
      */
     public function create(array $data): Shop
     {
-        return $this->shopService->createShop($data);
+        return $this->shopService->createShop(data: $data);
     }
 
     /**
@@ -38,7 +38,7 @@ class ShopController
     public function addProductsToStorages(Shop $shop, ProductInterface $product, int $quantity): void
     {
         try {
-            $this->shopService->addProductsToStorages($shop, $product, $quantity);
+            $this->shopService->addProductsToStorages(shop: $shop, product: $product, quantity: $quantity);
         } catch (StorageFullException | InsufficientStockException $e) {
             throw $e;
         }
@@ -54,7 +54,7 @@ class ShopController
     public function removeProductsFromStorages(Shop $shop, ProductInterface $product, int $quantity): void
     {
         try {
-            $this->shopService->takeOutProductsFromStorages($shop, $product, $quantity);
+            $this->shopService->takeOutProductsFromStorages(shop: $shop, product: $product, quantity: $quantity);
         } catch (StorageFullException | InsufficientStockException $e) {
             throw $e;
         }

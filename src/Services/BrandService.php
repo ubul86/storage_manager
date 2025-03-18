@@ -16,11 +16,11 @@ class BrandService
     public function createBrand(array $data): Brand
     {
 
-        BrandValidator::validate($data);
+        BrandValidator::validate(data: $data);
 
         $name = $data['name'];
         $qualityCategory = $data['qualityCategory'];
 
-        return new Brand($name, $qualityCategory);
+        return new Brand(name: $name, qualityCategory: $qualityCategory);
     }
 }

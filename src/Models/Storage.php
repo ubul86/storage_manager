@@ -55,7 +55,7 @@ class Storage implements StorageInterface
 
     public function hasProduct(ProductInterface $product): bool
     {
-        return $this->getProductCount($product) > 0;
+        return $this->getProductCount(product: $product) > 0;
     }
 
     public function addProduct(ProductInterface $product): void

@@ -26,7 +26,7 @@ class ShopService
         $name = $data['name'];
         $location = $data['location'];
 
-        return new Shop($name, $location);
+        return new Shop(name: $name, location: $location);
     }
 
     /**
@@ -38,7 +38,7 @@ class ShopService
      */
     public function addProductsToStorages(Shop $shop, ProductInterface $product, int $quantity): void
     {
-        $this->modifyProductQuantityInStorages($shop, $product, $quantity, true);
+        $this->modifyProductQuantityInStorages(shop: $shop, product: $product, quantity: $quantity, isAdding: true);
     }
 
     /**
@@ -50,8 +50,8 @@ class ShopService
      */
     public function takeOutProductsFromStorages(Shop $shop, ProductInterface $product, int $quantity): void
     {
-        $this->checkProductAvailability($shop->getStorages(), $product, $quantity);
-        $this->modifyProductQuantityInStorages($shop, $product, $quantity, false);
+        $this->checkProductAvailability(storages: $shop->getStorages(), product: $product, requiredQuantity: $quantity);
+        $this->modifyProductQuantityInStorages(shop: $shop, product: $product, quantity: $quantity, isAdding: false);
     }
 
     /**
@@ -72,7 +72,7 @@ class ShopService
             if ($availableSpaceOrStock > 0) {
                 $amountToProcess = min($remainingQuantity, $availableSpaceOrStock);
 
-                $isAdding ? $this->storageService->addMultipleProduct($storage, $product, $amountToProcess) : $this->storageService->removeMultipleProduct($storage, $product, $amountToProcess);
+                $isAdding ? $this->storageService->addMultipleProduct(storage: $storage, product: $product, quantity: $amountToProcess) : $this->storageService->removeMultipleProduct(storage: $storage, product: $product, quantity: $amountToProcess);
 
                 $remainingQuantity -= $amountToProcess;
 
@@ -103,7 +103,7 @@ class ShopService
         $totalAvailable = 0;
 
         foreach ($storages as $storage) {
-            $totalAvailable += $storage->getProductCount($product);
+            $totalAvailable += $storage->getProductCount(product: $product);
         }
 
         if ($requiredQuantity > $totalAvailable) {

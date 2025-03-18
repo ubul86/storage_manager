@@ -24,7 +24,7 @@ class StorageService
         $address = $data['address'];
         $capacity = $data['capacity'];
 
-        return new Storage($name, $address, $capacity);
+        return new Storage(name: $name, address: $address, capacity: $capacity);
     }
 
     /**
@@ -36,7 +36,7 @@ class StorageService
      */
     public function addMultipleProduct(StorageInterface $storage, ProductInterface $product, int $quantity): void
     {
-        array_map(fn() => $this->addProduct($storage, $product), array_fill(0, $quantity, null));
+        array_map(fn() => $this->addProduct(storage: $storage, product: $product), array_fill(start_index: 0, count: $quantity, value: null));
     }
 
     /**
@@ -48,7 +48,7 @@ class StorageService
      */
     public function removeMultipleProduct(StorageInterface $storage, ProductInterface $product, int $quantity): void
     {
-        array_map(fn() => $this->removeProduct($storage, $product), array_fill(0, $quantity, null));
+        array_map(fn() => $this->removeProduct(storage: $storage, product: $product), array_fill(start_index: 0, count: $quantity, value: null));
     }
 
     /**
@@ -60,7 +60,7 @@ class StorageService
             throw new StorageFullException("Not enough space in storage!");
         }
 
-        $storage->addProduct($product);
+        $storage->addProduct(product: $product);
     }
 
     /**
@@ -71,10 +71,10 @@ class StorageService
      */
     public function removeProduct(StorageInterface $storage, ProductInterface $product): void
     {
-        if (!$storage->hasProduct($product)) {
+        if (!$storage->hasProduct(product: $product)) {
             throw new ProductNotFoundException("Product not found in storage!");
         }
 
-        $storage->removeProduct($product);
+        $storage->removeProduct(product: $product);
     }
 }

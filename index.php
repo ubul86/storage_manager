@@ -20,63 +20,63 @@ $storageController = $container->get(StorageController::class);
 
 printBanner('1. Creating Elements');
 
-$brand = $brandController->create([
+$brand = $brandController->create(data: [
     'name' => 'Test',
     'qualityCategory' => 5
 ]);
 
-$product = $productController->create([
+$product = $productController->create(data: [
     'sku' => '12345',
     'name' => 'Test Product',
     'price' => 10,
-], $brand);
+], brand: $brand);
 
-$product2 = $productController->create([
+$product2 = $productController->create(data: [
     'type' => 'Laptop',
     'sku' => '54321',
     'name' => 'Test Product 2',
     'price' => 10,
-], $brand);
+], brand: $brand);
 
-$storage = $storageController->create([
+$storage = $storageController->create(data: [
     'name' => 'Test Storage',
     'address' => 'Test Address',
     'capacity' => 10,
 ]);
 
-$storageController->addProduct($storage, $product);
-$storageController->addProduct($storage, $product2);
+$storageController->addProduct(storage: $storage, product: $product);
+$storageController->addProduct(storage: $storage, product: $product2);
 
-$shopModel = $shopController->create([
+$shopModel = $shopController->create(data: [
     'name' => 'Test Shop',
     'location' => 'Test Location'
 ]);
 
-$storage2 = $storageController->create([
+$storage2 = $storageController->create(data: [
     'name' => 'Test Storage 2',
     'address' => 'Test Address 2',
     'capacity' => 10,
 ]);
 
-$shopModel->addStorage($storage);
-$shopModel->addStorage($storage2);
+$shopModel->addStorage(storage: $storage);
+$shopModel->addStorage(storage: $storage2);
 
 printBanner('2. BULK Add Products');
 
-$shopController->addProductsToStorages($shopModel, $product, 18);
+$shopController->addProductsToStorages(shop: $shopModel, product: $product, quantity: 18);
 
 formatOutput($shopModel);
 
 printBanner('3. BULK Remove Products');
 
-$shopController->removeProductsFromStorages($shopModel, $product, 1);
+$shopController->removeProductsFromStorages(shop: $shopModel, product: $product, quantity: 1);
 
 formatOutput($shopModel);
 
 printBanner('4. BULK Remove Products Insufficient');
 
 try {
-    $shopController->removeProductsFromStorages($shopModel, $product, 19);
+    $shopController->removeProductsFromStorages(shop: $shopModel, product: $product, quantity: 19);
     formatOutput($shopModel);
 }
 catch(InsufficientStockException $e) {

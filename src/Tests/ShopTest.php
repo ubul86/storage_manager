@@ -28,31 +28,31 @@ class ShopTest extends TestCase
     public function testAddProductsToStorageAndPrintStorageContent(): void
     {
 
-        $brand = $this->brandService->createBrand([
+        $brand = $this->brandService->createBrand(data: [
             'name' => 'Test',
             'qualityCategory' => 5
         ]);
 
-        $product1 = $this->productService->createProduct([
+        $product1 = $this->productService->createProduct(data: [
             'sku' => '12345',
             'name' => 'Test Product',
             'price' => 10,
-        ], $brand);
+        ], brand: $brand);
 
-        $product2 = $this->productService->createProduct([
+        $product2 = $this->productService->createProduct(data: [
             'sku' => '54321',
             'name' => 'Test Product 2',
             'price' => 15,
-        ], $brand);
+        ], brand: $brand);
 
-        $storage = $this->storageService->createStorage([
+        $storage = $this->storageService->createStorage(data: [
             'name' => 'Test Storage',
             'address' => 'Test Location',
             'capacity' => 20,
         ]);
 
-        $this->storageService->addProduct($storage, $product1);
-        $this->storageService->addProduct($storage, $product2);
+        $this->storageService->addProduct(storage: $storage, product: $product1);
+        $this->storageService->addProduct(storage: $storage, product: $product2);
 
         $storageContent = (string)$storage;
 
@@ -68,40 +68,40 @@ class ShopTest extends TestCase
     public function testAddProductsToMultipleStorages(): void
     {
 
-        $brand = $this->brandService->createBrand([
+        $brand = $this->brandService->createBrand(data: [
             'name' => 'Test',
             'qualityCategory' => 5
         ]);
 
-        $product1 = $this->productService->createProduct([
+        $product1 = $this->productService->createProduct(data: [
             'sku' => '12345',
             'name' => 'Test Product',
             'price' => 10,
-        ], $brand);
+        ], brand: $brand);
 
 
-        $storage = $this->storageService->createStorage([
+        $storage = $this->storageService->createStorage(data: [
             'name' => 'Test Storage',
             'address' => 'Test Location',
             'capacity' => 2,
         ]);
 
-        $shop = $this->shopService->createShop([
+        $shop = $this->shopService->createShop(data: [
             'name' => 'Test Shop',
             'location' => 'Test Location'
         ]);
 
-        $shop->addStorage($storage);
+        $shop->addStorage(storage: $storage);
 
-        $storage = $this->storageService->createStorage([
+        $storage = $this->storageService->createStorage(data: [
             'name' => 'Test Storage 2',
             'address' => 'Test Location',
             'capacity' => 5,
         ]);
 
-        $shop->addStorage($storage);
+        $shop->addStorage(storage: $storage);
 
-        $this->shopService->addProductsToStorages($shop, $product1, 5);
+        $this->shopService->addProductsToStorages(shop: $shop, product: $product1, quantity: 5);
 
         $storages = $shop->getStorages();
 
@@ -117,39 +117,39 @@ class ShopTest extends TestCase
     {
         $this->expectException(InsufficientStockException::class);
 
-        $brand = $this->brandService->createBrand([
+        $brand = $this->brandService->createBrand(data: [
             'name' => 'Test',
             'qualityCategory' => 5
         ]);
 
-        $product1 = $this->productService->createProduct([
+        $product1 = $this->productService->createProduct(data: [
             'sku' => '12345',
             'name' => 'Test Product',
             'price' => 10,
-        ], $brand);
+        ], brand: $brand);
 
 
-        $storage = $this->storageService->createStorage([
+        $storage = $this->storageService->createStorage(data: [
             'name' => 'Test Storage',
             'address' => 'Test Location',
             'capacity' => 2,
         ]);
 
-        $shop = $this->shopService->createShop([
+        $shop = $this->shopService->createShop(data: [
             'name' => 'Test Shop',
             'location' => 'Test Location'
         ]);
 
         $shop->addStorage($storage);
 
-        $storage = $this->storageService->createStorage([
+        $storage = $this->storageService->createStorage(data: [
             'name' => 'Test Storage 2',
             'address' => 'Test Location',
             'capacity' => 5,
         ]);
 
-        $shop->addStorage($storage);
+        $shop->addStorage(storage: $storage);
 
-        $this->shopService->takeOutProductsFromStorages($shop, $product1, 5);
+        $this->shopService->takeOutProductsFromStorages(shop: $shop, product: $product1, quantity: 5);
     }
 }
