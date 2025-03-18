@@ -11,10 +11,8 @@ use DI\Attribute\Inject;
 class ProductController
 {
     #[Inject]
-    private ProductService $productService;
-    public function __construct(ProductService $productService)
+    public function __construct(private readonly ProductService $productService)
     {
-        $this->productService = $productService;
     }
 
     /**

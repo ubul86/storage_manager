@@ -10,11 +10,8 @@ use App\Models\Shop;
 
 class ShopService
 {
-    private StorageService $storageService;
-
-    public function __construct(StorageService $storageService)
+    public function __construct(private readonly StorageService $storageService)
     {
-        $this->storageService = $storageService;
     }
 
     /**

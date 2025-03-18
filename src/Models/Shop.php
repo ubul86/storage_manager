@@ -7,18 +7,13 @@ use App\Interfaces\StorageInterface;
 
 class Shop implements ShopInterface
 {
-    private string $name;
-    private string $location;
-
     /**
      * @var StorageInterface[]
      */
     private array $storages = [];
 
-    public function __construct(string $name, string $location)
+    public function __construct(private readonly string $name, private readonly string $location)
     {
-        $this->name = $name;
-        $this->location = $location;
     }
 
     public function addStorage(StorageInterface $storage): void

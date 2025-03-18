@@ -7,20 +7,13 @@ use App\Interfaces\StorageInterface;
 
 class Storage implements StorageInterface
 {
-    private string $name;
-    private string $address;
-    private int $capacity;
-
     /**
      * @var ProductInterface[]
      */
     private array $stock = [];
 
-    public function __construct(string $name, string $address, int $capacity)
+    public function __construct(private string $name, private string $address, private int $capacity)
     {
-        $this->name = $name;
-        $this->address = $address;
-        $this->capacity = $capacity;
     }
 
     public function getName(): string

@@ -6,13 +6,8 @@ use App\Interfaces\BrandInterface;
 
 class Brand implements BrandInterface
 {
-    private string $name;
-    private int $qualityCategory;
-
-    public function __construct(string $name, int $qualityCategory)
+    public function __construct(private readonly string $name, private readonly int $qualityCategory)
     {
-        $this->name = $name;
-        $this->qualityCategory = $qualityCategory;
     }
 
     public function getName(): string

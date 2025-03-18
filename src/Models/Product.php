@@ -7,15 +7,11 @@ use ReflectionClass;
 
 class Product implements ProductInterface
 {
-    protected string $sku;
-    protected string $name;
     protected float $price = 0.0;
     protected Brand $brand;
 
-    public function __construct(string $sku, string $name)
+    public function __construct(private readonly string $sku, private readonly string $name)
     {
-        $this->sku = $sku;
-        $this->name = $name;
     }
 
     public function setPrice(float $price): self

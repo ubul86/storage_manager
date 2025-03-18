@@ -10,11 +10,8 @@ use DI\Attribute\Inject;
 class BrandController
 {
     #[Inject]
-    private BrandService $brandService;
-
-    public function __construct(BrandService $brandService)
+    public function __construct(private readonly BrandService $brandService)
     {
-        $this->brandService = $brandService;
     }
 
     /**

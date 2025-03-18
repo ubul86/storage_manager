@@ -12,11 +12,8 @@ use DI\Attribute\Inject;
 class ShopController
 {
     #[Inject]
-    private ShopService $shopService;
-
-    public function __construct(ShopService $shopService)
+    public function __construct(private readonly ShopService $shopService)
     {
-        $this->shopService = $shopService;
     }
 
     /**
