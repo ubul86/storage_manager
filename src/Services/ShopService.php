@@ -67,9 +67,7 @@ class ShopService
         $remainingQuantity = $quantity;
 
         foreach ($shop->getStorages() as $storage) {
-            $availableSpaceOrStock = $isAdding
-                ? $storage->getCapacity() - $storage->getStockQuantity()
-                : $storage->getProductCount($product);
+            $availableSpaceOrStock = $isAdding ? $storage->getCapacity() - $storage->getStockQuantity() : $storage->getProductCount($product);
 
             if ($availableSpaceOrStock > 0) {
                 $amountToProcess = min($remainingQuantity, $availableSpaceOrStock);

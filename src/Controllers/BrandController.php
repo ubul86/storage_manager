@@ -5,9 +5,11 @@ namespace App\Controllers;
 use InvalidArgumentException;
 use App\Models\Brand;
 use App\Services\BrandService;
+use DI\Attribute\Inject;
 
 class BrandController
 {
+    #[Inject]
     private BrandService $brandService;
 
     public function __construct(BrandService $brandService)

@@ -6,9 +6,11 @@ use InvalidArgumentException;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Services\ProductService;
+use DI\Attribute\Inject;
 
 class ProductController
 {
+    #[Inject]
     private ProductService $productService;
     public function __construct(ProductService $productService)
     {

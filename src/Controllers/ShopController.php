@@ -7,9 +7,11 @@ use App\Exceptions\StorageFullException;
 use App\Interfaces\ProductInterface;
 use App\Models\Shop;
 use App\Services\ShopService;
+use DI\Attribute\Inject;
 
 class ShopController
 {
+    #[Inject]
     private ShopService $shopService;
 
     public function __construct(ShopService $shopService)

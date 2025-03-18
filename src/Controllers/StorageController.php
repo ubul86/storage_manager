@@ -8,9 +8,11 @@ use InvalidArgumentException;
 use App\Services\StorageService;
 use App\Interfaces\ProductInterface;
 use App\Exceptions\StorageFullException;
+use DI\Attribute\Inject;
 
 class StorageController
 {
+    #[Inject]
     private StorageService $storageService;
 
     public function __construct(StorageService $storageService)
@@ -61,5 +63,4 @@ class StorageController
             throw $e;
         }
     }
-
 }

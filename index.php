@@ -8,17 +8,10 @@ use App\Exceptions\InsufficientStockException;
 use App\Controllers\ProductController;
 use App\Controllers\BrandController;
 use App\Controllers\StorageController;
-use DI\Container;
-use App\Services\ShopService;
-use App\Services\BrandService;
-use App\Services\ProductService;
-use App\Services\StorageService;
+use DI\ContainerBuilder;
 
-$container = new Container();
-$container->set(ShopService::class, \DI\autowire(ShopService::class));
-$container->set(ProductService::class, \DI\autowire(ProductService::class));
-$container->set(BrandService::class, \DI\autowire(BrandService::class));
-$container->set(StorageService::class, \DI\autowire(StorageService::class));
+$containerBuilder = new ContainerBuilder();
+$container = $containerBuilder->build();
 
 $shopController = $container->get(ShopController::class);
 $productController = $container->get(ProductController::class);
