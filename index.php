@@ -10,6 +10,7 @@ use App\Controllers\BrandController;
 use App\Controllers\StorageController;
 use DI\ContainerBuilder;
 use App\DTO\BrandDTO;
+use App\DTO\ProductDTO;
 
 $containerBuilder = new ContainerBuilder();
 $container = $containerBuilder->build();
@@ -28,18 +29,24 @@ $brandData = [
 
 $brand = $brandController->create(data: BrandDTO::fromArray($brandData));
 
-$product = $productController->create(data: [
+$productData = [
     'sku' => '12345',
     'name' => 'Test Product',
     'price' => 10,
-], brand: $brand);
+];
 
-$product2 = $productController->create(data: [
+$product = $productController->create(data: ProductDTO::fromArray($productData), brand: $brand);
+
+$productData2 = [
     'type' => 'Laptop',
     'sku' => '54321',
     'name' => 'Test Product 2',
+    'processor' => 'Amd',
+    'ramSize' => 16,
     'price' => 10,
-], brand: $brand);
+];
+
+$product2 = $productController->create(data: ProductDTO::fromArray($productData2), brand: $brand);
 
 $storage = $storageController->create(data: [
     'name' => 'Test Storage',

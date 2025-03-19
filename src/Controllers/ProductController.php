@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\DTO\ProductDTO;
 use InvalidArgumentException;
 use App\Models\Brand;
 use App\Models\Product;
@@ -16,12 +17,12 @@ class ProductController
     }
 
     /**
-     * @param array<mixed> $data
+     * @param ProductDTO $data
      * @param Brand $brand
      * @return Product
      * @throws InvalidArgumentException
      */
-    public function create(array $data, Brand $brand): Product
+    public function create(ProductDTO $data, Brand $brand): Product
     {
         try {
             return $this->productService->createProduct(data: $data, brand: $brand);

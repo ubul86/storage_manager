@@ -3,6 +3,7 @@
 namespace App\Tests;
 
 use App\DTO\BrandDTO;
+use App\DTO\ProductDTO;
 use App\Exceptions\InsufficientStockException;
 use App\Exceptions\StorageFullException;
 use App\Services\BrandService;
@@ -36,17 +37,21 @@ class ShopTest extends TestCase
 
         $brand = $this->brandService->createBrand(data: BrandDTO::fromArray($brandData));
 
-        $product1 = $this->productService->createProduct(data: [
+        $product1Data =  [
             'sku' => '12345',
             'name' => 'Test Product',
             'price' => 10,
-        ], brand: $brand);
+        ];
 
-        $product2 = $this->productService->createProduct(data: [
+        $product1 = $this->productService->createProduct(data: ProductDTO::fromArray($product1Data), brand: $brand);
+
+        $product2Data = [
             'sku' => '54321',
             'name' => 'Test Product 2',
             'price' => 15,
-        ], brand: $brand);
+        ];
+
+        $product2 = $this->productService->createProduct(data: ProductDTO::fromArray($product2Data), brand: $brand);
 
         $storage = $this->storageService->createStorage(data: [
             'name' => 'Test Storage',
@@ -78,12 +83,13 @@ class ShopTest extends TestCase
 
         $brand = $this->brandService->createBrand(data: BrandDTO::fromArray($brandData));
 
-        $product1 = $this->productService->createProduct(data: [
+        $product1Data =  [
             'sku' => '12345',
             'name' => 'Test Product',
             'price' => 10,
-        ], brand: $brand);
+        ];
 
+        $product1 = $this->productService->createProduct(data: ProductDTO::fromArray($product1Data), brand: $brand);
 
         $storage = $this->storageService->createStorage(data: [
             'name' => 'Test Storage',
@@ -129,12 +135,13 @@ class ShopTest extends TestCase
 
         $brand = $this->brandService->createBrand(data: BrandDTO::fromArray($brandData));
 
-        $product1 = $this->productService->createProduct(data: [
+        $product1Data =  [
             'sku' => '12345',
             'name' => 'Test Product',
             'price' => 10,
-        ], brand: $brand);
+        ];
 
+        $product1 = $this->productService->createProduct(data: ProductDTO::fromArray($product1Data), brand: $brand);
 
         $storage = $this->storageService->createStorage(data: [
             'name' => 'Test Storage',
