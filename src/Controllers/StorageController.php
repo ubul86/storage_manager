@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\DTO\StorageDTO;
 use App\Exceptions\ProductNotFoundException;
 use App\Interfaces\StorageInterface;
 use InvalidArgumentException;
@@ -18,11 +19,11 @@ class StorageController
     }
 
     /**
-     * @param array{ name: string, address: string, capacity: int } $data
+     * @param StorageDTO $data
      * @return StorageInterface
      * @throws InvalidArgumentException
      */
-    public function create(array $data): StorageInterface
+    public function create(StorageDTO $data): StorageInterface
     {
         try {
             return $this->storageService->createStorage(data: $data);

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DTO\StorageDTO;
 use App\Exceptions\ProductNotFoundException;
 use App\Exceptions\StorageFullException;
 use App\Interfaces\ProductInterface;
@@ -12,17 +13,15 @@ use App\Validators\StorageValidator;
 class StorageService
 {
     /**
-     * @param array{ name: string, address: string, capacity: int } $data
+     * @param StorageDTO $data
      * @return StorageInterface
      */
-    public function createStorage(array $data): StorageInterface
+    public function createStorage(StorageDTO $data): StorageInterface
     {
 
-        StorageValidator::validate($data);
-
-        $name = $data['name'];
-        $address = $data['address'];
-        $capacity = $data['capacity'];
+        $name = $data->name;
+        $address = $data->address;
+        $capacity = $data->capacity;
 
         return new Storage(name: $name, address: $address, capacity: $capacity);
     }

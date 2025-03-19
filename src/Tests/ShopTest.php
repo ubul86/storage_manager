@@ -4,6 +4,7 @@ namespace App\Tests;
 
 use App\DTO\BrandDTO;
 use App\DTO\ProductDTO;
+use App\DTO\StorageDTO;
 use App\Exceptions\InsufficientStockException;
 use App\Exceptions\StorageFullException;
 use App\Services\BrandService;
@@ -53,11 +54,13 @@ class ShopTest extends TestCase
 
         $product2 = $this->productService->createProduct(data: ProductDTO::fromArray($product2Data), brand: $brand);
 
-        $storage = $this->storageService->createStorage(data: [
+        $storageData = [
             'name' => 'Test Storage',
             'address' => 'Test Location',
             'capacity' => 20,
-        ]);
+        ];
+
+        $storage = $this->storageService->createStorage(data: StorageDTO::fromArray($storageData));
 
         $this->storageService->addProduct(storage: $storage, product: $product1);
         $this->storageService->addProduct(storage: $storage, product: $product2);
@@ -91,11 +94,13 @@ class ShopTest extends TestCase
 
         $product1 = $this->productService->createProduct(data: ProductDTO::fromArray($product1Data), brand: $brand);
 
-        $storage = $this->storageService->createStorage(data: [
+        $storageData1 = [
             'name' => 'Test Storage',
             'address' => 'Test Location',
             'capacity' => 2,
-        ]);
+        ];
+
+        $storage = $this->storageService->createStorage(data: StorageDTO::fromArray($storageData1));
 
         $shop = $this->shopService->createShop(data: [
             'name' => 'Test Shop',
@@ -104,11 +109,13 @@ class ShopTest extends TestCase
 
         $shop->addStorage(storage: $storage);
 
-        $storage = $this->storageService->createStorage(data: [
+        $storageData2 = [
             'name' => 'Test Storage 2',
             'address' => 'Test Location',
             'capacity' => 5,
-        ]);
+        ];
+
+        $storage = $this->storageService->createStorage(data: StorageDTO::fromArray($storageData2));
 
         $shop->addStorage(storage: $storage);
 
@@ -143,11 +150,13 @@ class ShopTest extends TestCase
 
         $product1 = $this->productService->createProduct(data: ProductDTO::fromArray($product1Data), brand: $brand);
 
-        $storage = $this->storageService->createStorage(data: [
+        $storageData1 = [
             'name' => 'Test Storage',
             'address' => 'Test Location',
             'capacity' => 2,
-        ]);
+        ];
+
+        $storage = $this->storageService->createStorage(data: StorageDTO::fromArray($storageData1));
 
         $shop = $this->shopService->createShop(data: [
             'name' => 'Test Shop',
@@ -156,11 +165,13 @@ class ShopTest extends TestCase
 
         $shop->addStorage($storage);
 
-        $storage = $this->storageService->createStorage(data: [
+        $storageData2 = [
             'name' => 'Test Storage 2',
             'address' => 'Test Location',
             'capacity' => 5,
-        ]);
+        ];
+
+        $storage = $this->storageService->createStorage(data: StorageDTO::fromArray($storageData2));
 
         $shop->addStorage(storage: $storage);
 

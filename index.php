@@ -11,6 +11,7 @@ use App\Controllers\StorageController;
 use DI\ContainerBuilder;
 use App\DTO\BrandDTO;
 use App\DTO\ProductDTO;
+use App\DTO\StorageDTO;
 
 $containerBuilder = new ContainerBuilder();
 $container = $containerBuilder->build();
@@ -48,11 +49,13 @@ $productData2 = [
 
 $product2 = $productController->create(data: ProductDTO::fromArray($productData2), brand: $brand);
 
-$storage = $storageController->create(data: [
+$storageData = [
     'name' => 'Test Storage',
     'address' => 'Test Address',
     'capacity' => 10,
-]);
+];
+
+$storage = $storageController->create(data: StorageDTO::fromArray($storageData));
 
 $storageController->addProduct(storage: $storage, product: $product);
 $storageController->addProduct(storage: $storage, product: $product2);
@@ -62,11 +65,13 @@ $shopModel = $shopController->create(data: [
     'location' => 'Test Location'
 ]);
 
-$storage2 = $storageController->create(data: [
+$storageData2 = [
     'name' => 'Test Storage 2',
     'address' => 'Test Address 2',
     'capacity' => 10,
-]);
+];
+
+$storage2 = $storageController->create(data: StorageDTO::fromArray($storageData2));
 
 $shopModel->addStorage(storage: $storage);
 $shopModel->addStorage(storage: $storage2);
