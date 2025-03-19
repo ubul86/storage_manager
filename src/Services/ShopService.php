@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DTO\ShopDTO;
 use App\Exceptions\InsufficientStockException;
 use App\Exceptions\StorageFullException;
 use App\Interfaces\ProductInterface;
@@ -15,15 +16,12 @@ class ShopService
     }
 
     /**
-     * @param array{ name: string, location: string } $data
+     * @param ShopDTO $data
      * @return Shop
      */
-    public function createShop(array $data): Shop
+    public function createShop(ShopDTO $data): Shop
     {
-        $name = $data['name'];
-        $location = $data['location'];
-
-        return new Shop(name: $name, location: $location);
+        return new Shop(name: $data->name, location: $data->location);
     }
 
     /**

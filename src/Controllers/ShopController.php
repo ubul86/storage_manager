@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\DTO\ShopDTO;
 use App\Exceptions\InsufficientStockException;
 use App\Exceptions\StorageFullException;
 use App\Interfaces\ProductInterface;
@@ -17,10 +18,10 @@ class ShopController
     }
 
     /**
-     * @param array{ name: string, location: string } $data
+     * @param ShopDTO $data
      * @return Shop
      */
-    public function create(array $data): Shop
+    public function create(ShopDTO $data): Shop
     {
         return $this->shopService->createShop(data: $data);
     }

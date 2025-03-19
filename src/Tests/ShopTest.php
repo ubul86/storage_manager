@@ -4,6 +4,7 @@ namespace App\Tests;
 
 use App\DTO\BrandDTO;
 use App\DTO\ProductDTO;
+use App\DTO\ShopDTO;
 use App\DTO\StorageDTO;
 use App\Exceptions\InsufficientStockException;
 use App\Exceptions\StorageFullException;
@@ -102,10 +103,12 @@ class ShopTest extends TestCase
 
         $storage = $this->storageService->createStorage(data: StorageDTO::fromArray($storageData1));
 
-        $shop = $this->shopService->createShop(data: [
+        $shopData = [
             'name' => 'Test Shop',
             'location' => 'Test Location'
-        ]);
+        ];
+
+        $shop = $this->shopService->createShop(data: ShopDTO::fromArray($shopData));
 
         $shop->addStorage(storage: $storage);
 
@@ -158,10 +161,12 @@ class ShopTest extends TestCase
 
         $storage = $this->storageService->createStorage(data: StorageDTO::fromArray($storageData1));
 
-        $shop = $this->shopService->createShop(data: [
+        $shopData = [
             'name' => 'Test Shop',
             'location' => 'Test Location'
-        ]);
+        ];
+
+        $shop = $this->shopService->createShop(data: ShopDTO::fromArray($shopData));
 
         $shop->addStorage($storage);
 
