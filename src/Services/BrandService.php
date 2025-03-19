@@ -2,24 +2,22 @@
 
 namespace App\Services;
 
+use App\DTO\BrandDTO;
 use App\Models\Brand;
-use App\Validators\BrandValidator;
 use InvalidArgumentException;
 
 class BrandService
 {
     /**
-     * @param array{ name: string, qualityCategory: int } $data
+     * @param BrandDTO $data
      * @return Brand
      * @throws InvalidArgumentException
      */
-    public function createBrand(array $data): Brand
+    public function createBrand(BrandDTO $data): Brand
     {
 
-        BrandValidator::validate(data: $data);
-
-        $name = $data['name'];
-        $qualityCategory = $data['qualityCategory'];
+        $name = $data->name;
+        $qualityCategory = $data->qualityCategory;
 
         return new Brand(name: $name, qualityCategory: $qualityCategory);
     }

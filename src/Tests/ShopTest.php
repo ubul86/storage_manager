@@ -2,6 +2,7 @@
 
 namespace App\Tests;
 
+use App\DTO\BrandDTO;
 use App\Exceptions\InsufficientStockException;
 use App\Exceptions\StorageFullException;
 use App\Services\BrandService;
@@ -28,10 +29,12 @@ class ShopTest extends TestCase
     public function testAddProductsToStorageAndPrintStorageContent(): void
     {
 
-        $brand = $this->brandService->createBrand(data: [
+        $brandData = [
             'name' => 'Test',
             'qualityCategory' => 5
-        ]);
+        ];
+
+        $brand = $this->brandService->createBrand(data: BrandDTO::fromArray($brandData));
 
         $product1 = $this->productService->createProduct(data: [
             'sku' => '12345',
@@ -68,10 +71,12 @@ class ShopTest extends TestCase
     public function testAddProductsToMultipleStorages(): void
     {
 
-        $brand = $this->brandService->createBrand(data: [
+        $brandData = [
             'name' => 'Test',
             'qualityCategory' => 5
-        ]);
+        ];
+
+        $brand = $this->brandService->createBrand(data: BrandDTO::fromArray($brandData));
 
         $product1 = $this->productService->createProduct(data: [
             'sku' => '12345',
@@ -117,10 +122,12 @@ class ShopTest extends TestCase
     {
         $this->expectException(InsufficientStockException::class);
 
-        $brand = $this->brandService->createBrand(data: [
+        $brandData = [
             'name' => 'Test',
             'qualityCategory' => 5
-        ]);
+        ];
+
+        $brand = $this->brandService->createBrand(data: BrandDTO::fromArray($brandData));
 
         $product1 = $this->productService->createProduct(data: [
             'sku' => '12345',

@@ -9,6 +9,7 @@ use App\Controllers\ProductController;
 use App\Controllers\BrandController;
 use App\Controllers\StorageController;
 use DI\ContainerBuilder;
+use App\DTO\BrandDTO;
 
 $containerBuilder = new ContainerBuilder();
 $container = $containerBuilder->build();
@@ -20,10 +21,12 @@ $storageController = $container->get(StorageController::class);
 
 printBanner('1. Creating Elements');
 
-$brand = $brandController->create(data: [
+$brandData = [
     'name' => 'Test',
     'qualityCategory' => 5
-]);
+];
+
+$brand = $brandController->create(data: BrandDTO::fromArray($brandData));
 
 $product = $productController->create(data: [
     'sku' => '12345',
